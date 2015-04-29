@@ -138,8 +138,6 @@ public class RemindersActivity extends ActionBarActivity {
         final EditText input = (EditText) inflatedDialogView.findViewById(R.id.edit_text_todo);
         CheckBox checkBox = (CheckBox) inflatedDialogView.findViewById(R.id.checkbox);
 
-
-
         //initialize using reminder
         titleText.setText(title);
         Log.d(getLocalClassName(), "init stuff");
