@@ -19,4 +19,6 @@
     <string name="dialog_positive">Commit</string>
     <string name="dialog_negative">Cancel</string>
 
+    <string name="dialog_title"></string>
+
 </resources>

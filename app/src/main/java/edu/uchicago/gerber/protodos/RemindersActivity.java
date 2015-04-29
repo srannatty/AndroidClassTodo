@@ -132,35 +132,36 @@ public class RemindersActivity extends ActionBarActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View inflatedDialogView = View.inflate(this, R.layout.dialog_todo, null);
 
+        final TextView titleText = (TextView) inflatedDialogView.findViewById(R.id.dialog_title);
         final EditText input = (EditText) inflatedDialogView.findViewById(R.id.edit_text_todo);
-        final ArrayList checkImportant = new ArrayList();
-
-        //make a dummy Reminder first
-        Log.d(getLocalClassName(), "Making Checkbox");
         CheckBox checkBox = (CheckBox) inflatedDialogView.findViewById(R.id.checkbox);
 
+
+
         //initialize using reminder
+        titleText.setText(title);
         Log.d(getLocalClassName(), "init stuff");
         if (editing) {
+            titleText.setBackgroundColor(getResources().getColor(R.color.blue));
             input.setText(reminder.getContent(), TextView.BufferType.EDITABLE);
             if (reminder.getImportant() == 1) {
                 //set checkbox to be checked in default.
                 checkBox.setChecked(true);
             }
         }
+        else {
+            titleText.setBackgroundColor(getResources().getColor(R.color.green));
+        }
 
-        Log.d(getLocalClassName(), "make Checkbox listener");
         //checkbox options
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Log.d(getLocalClassName(), "isChecked: " + isChecked);
                 reminder.setImportant(isChecked? 1:0);
             }
         });
         checkBox.setText(" Important");
 
-        Log.d(getLocalClassName(), "building dialog");
         builder.setView(inflatedDialogView)
                 // Add action buttons
                 .setPositiveButton(R.string.dialog_positive, new DialogInterface.OnClickListener() {
@@ -181,73 +182,11 @@ public class RemindersActivity extends ActionBarActivity {
                     }
                 });
 
-        Log.d(getLocalClassName(), "Create dialog");
-        AlertDialog dialog = builder.create();
-        dialog.show();
-        Log.d(getLocalClassName(), "end makeDialog");
-    }
-
-
-
-    public void editTodo(int id) {
-        final Reminder todo = mDbAdapter.fetchReminderById(id);
-
-        //Create a dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        final EditText input = new EditText(this);
-        final CharSequence[] item = {" Important "};
-        final ArrayList selectedItem = new ArrayList();
-
-        //initialize using the information in the old reminder
-        //text init
-        input.setText(todo.getContent(), TextView.BufferType.EDITABLE);
-        //important init
-        //todo initialize this
-        int important = todo.getImportant();
-        if (important == 1) {
-            selectedItem.add(0);
-        }
-
-        builder.setTitle(R.string.edit_reminder)
-                .setView(input)
-                .setMultiChoiceItems(item, null, new DialogInterface.OnMultiChoiceClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int indexSelected, boolean isChecked) {
-                        if (isChecked) {
-                            // If the user checked the item, add it to the selected items
-                            // write your code when user checked the checkbox
-                            //indexSelected is always 0 (only one item)
-                            selectedItem.add(indexSelected);
-                        } else if (selectedItem.contains(indexSelected)) {
-                            // Else, if the item is already in the array, remove it
-                            // write your code when user Unchecked the checkbox
-                            selectedItem.remove(Integer.valueOf(indexSelected));
-                        }
-                    }
-                })
-
-                // Set the action buttons
-                .setPositiveButton("Commit", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        //  when user clicked on OK
-                        todo.setContent(input.getText().toString());
-                        todo.setImportant(selectedItem.contains(0) ? 1 : 0);
-                        mDbAdapter.updateReminder(todo);
-                        updateListView();
-                    }
-                })
-
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        return;
-                    }
-                });
-        // 4. create alert dialog
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+
+
 
 
     @Override
@@ -268,6 +207,9 @@ public class RemindersActivity extends ActionBarActivity {
                 return false;
         }
     }
+
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
