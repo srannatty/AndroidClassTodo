@@ -2,13 +2,21 @@
 <resources>
 
     <string name="app_name">proTodos</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_new">New Todo</string>
     <string name="action_exit">Exit</string>
+
     <string name="title_activity_reminders">RemindersActivity</string>
     <string name="new_reminder">New Reminder</string>
-    <string name="edit_reminder">Edit Reminder</string>
+
 
     <string name="menu_edit">Edit ToDo</string>
     <string name="menu_delete">Delete ToDo</string>
+
+    <string name="edit_reminder">Edit Reminder</string>
+
+    <string name="action_newtodo">New Todo</string>
+
+    <string name="dialog_positive">Commit</string>
+    <string name="dialog_negative">Cancel</string>
+
 </resources>
