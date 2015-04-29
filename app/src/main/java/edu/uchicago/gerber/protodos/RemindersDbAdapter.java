@@ -75,7 +75,6 @@ public class RemindersDbAdapter {
         ContentValues values = new ContentValues();
         values.put(COL_CONTENT, reminder.getContent()); // Contact Name
         values.put(COL_IMPORTANT, reminder.getImportant()); // Contact Phone Number
-
         // Inserting Row
         return mDb.insert(TABLE_NAME, null, values);
     }
