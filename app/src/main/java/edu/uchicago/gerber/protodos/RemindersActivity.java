@@ -3,6 +3,7 @@ package edu.uchicago.gerber.protodos;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
@@ -36,6 +37,7 @@ public class RemindersActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_reminders);
         mListView = (ListView) findViewById(R.id.reminders_list_view);
         mListView.setDivider(null);
